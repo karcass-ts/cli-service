@@ -1,0 +1,6 @@
+*
+!lib/*
+!package.json
+!README.md
+lib/**test.js
+lib/**test.d.ts
