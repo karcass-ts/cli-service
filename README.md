@@ -1,6 +1,6 @@
 # @karcass/cli-service
 
-Cli service for karcass skeleton which helps to build simple CLI interfaces
+CLI service for <a href="https://github.com/karcass-ts/karcass">karcass</a> skeleton which helps to build simple CLI interfaces
 
 ## Installation
 
