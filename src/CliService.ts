@@ -24,6 +24,9 @@ export class CliService {
 
     public async run() {
         for (const command of this.container.getKeys()) {
+            if (typeof command === 'string') {
+                throw new Error(`Key "${command}" must be a constructor, not a string`)
+            }
             const meta = (command as unknown as MetaContainerInterface).meta
             if (!meta || !meta.name) {
                 throw new Error(`There is no static field "meta" in the ${command.name}`)
