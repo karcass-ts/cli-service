@@ -12,7 +12,7 @@ export class CliService {
         }
     }
 
-    public add<T extends AbstractConsoleCommand>(constructor: new (...args: any[]) => T, initializer: () => T) {
+    public add<T extends AbstractConsoleCommand>(constructor: new (...args: any[]) => T, initializer: () => T|Promise<T>) {
         this.container.add(constructor, initializer)
     }
 
@@ -20,14 +20,14 @@ export class CliService {
         for (const command of this.container.getConstructors()) {
             const meta = (command as unknown as MetaContainerInterface).meta
             if (!meta || !meta.name) {
-                throw new Error(`There is no static field "meta" in the ${command}`)
+                throw new Error(`There is no static field "meta" in the ${command.name}`)
             }
             if (meta.name === process.argv[2]) {
-                await this.container.get(command).execute()
+                (await this.container.get(command)).execute()
                 return
             }
         }
-        await this.container.get(HelpCommand).execute()
+        (await this.container.get(HelpCommand)).execute()
     }
 
 }

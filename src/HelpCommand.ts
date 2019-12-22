@@ -12,13 +12,13 @@ export class HelpCommand extends AbstractConsoleCommand {
         const commands = this.commands.map(command => {
             const meta = (command as unknown as MetaContainerInterface).meta
             if (!meta || !meta.name) {
-                throw new Error(`There is no static field "meta" in the ${command}`)
+                throw new Error(`There is no static field "meta" in the ${command.name}`)
             }
             if (typeof meta.name !== 'string') {
-                throw new Error(`The property "name" of the static field "meta" of the ${command} must be a string`)
+                throw new Error(`The property "name" of the static field "meta" of the ${command.name} must be a string`)
             }
             if (meta.description && typeof meta.description !== 'string') {
-                throw new Error(`The property "description" of the static field "meta" of the ${command} must be a string`)
+                throw new Error(`The property "description" of the static field "meta" of the ${command.name} must be a string`)
             }
             return { description: '', ...meta }
         }).sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)

@@ -1,12 +1,12 @@
 {
   "name": "@karcass/cli-service",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cli service for karcass skeleton which helps to build simple CLI interfaces",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "rm -Rf lib && tsc",
-    "watch": "tsc -w",
+    "watch": "rm -Rf lib && tsc -w",
     "lint": "eslint -c .eslintrc.json --ext .ts src",
     "test": "mocha lib/index.test.js",
     "prepare": "npm run build",
@@ -35,6 +35,6 @@
     "typescript": "^3.7.3"
   },
   "dependencies": {
-    "@karcass/container": "0.0.2"
+    "@karcass/container": "0.0.3"
   }
 }
