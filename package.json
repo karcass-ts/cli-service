@@ -1,6 +1,6 @@
 {
   "name": "@karcass/cli-service",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Cli service for karcass skeleton which helps to build simple CLI interfaces",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
