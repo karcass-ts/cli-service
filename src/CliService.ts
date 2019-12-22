@@ -8,7 +8,13 @@ export class CliService {
     public constructor(config: { useDefaultHelpCommand?: boolean } = {}) {
         config = { useDefaultHelpCommand: true, ...config }
         if (config.useDefaultHelpCommand) {
-            this.container.add(HelpCommand, () => new HelpCommand(this.container.getConstructors()))
+            const commands: (new (...args: any[]) => AbstractConsoleCommand)[] = []
+            for (const key of this.container.getKeys()) {
+                if (typeof key !== 'string') {
+                    commands.push(key)
+                }
+            }
+            this.container.add(HelpCommand, () => new HelpCommand(commands))
         }
     }
 
@@ -17,7 +23,7 @@ export class CliService {
     }
 
     public async run() {
-        for (const command of this.container.getConstructors()) {
+        for (const command of this.container.getKeys()) {
             const meta = (command as unknown as MetaContainerInterface).meta
             if (!meta || !meta.name) {
                 throw new Error(`There is no static field "meta" in the ${command.name}`)
