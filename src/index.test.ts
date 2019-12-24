@@ -31,14 +31,14 @@ it('Must change value of testVar to 2', async () => {
 })
 it('Must console.log help text', async () => {
     const cliService = new CliService()
-    let out = ''
+    const out: string[] = []
     const myLog = (text: string) => {
-        out += text
+        out.push(text)
     }
     const reallyLog = console.log
     console.log = myLog
     await cliService.run()
     console.log = reallyLog
-    assert(out.indexOf('Show this help'))
-    assert(out.indexOf('--help'))
+    assert(out.join('\n').indexOf('Show this help') >= 0)
+    assert(out.join('\n').indexOf('--help') >= 0)
 })

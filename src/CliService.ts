@@ -8,13 +8,15 @@ export class CliService {
     public constructor(config: { useDefaultHelpCommand?: boolean } = {}) {
         config = { useDefaultHelpCommand: true, ...config }
         if (config.useDefaultHelpCommand) {
-            const commands: (new (...args: any[]) => AbstractConsoleCommand)[] = []
-            for (const key of this.container.getKeys()) {
-                if (typeof key !== 'string') {
-                    commands.push(key)
+            this.container.add(HelpCommand, () => {
+                const commands: (new (...args: any[]) => AbstractConsoleCommand)[] = []
+                for (const key of this.container.getKeys()) {
+                    if (typeof key !== 'string') {
+                        commands.push(key)
+                    }
                 }
-            }
-            this.container.add(HelpCommand, () => new HelpCommand(commands))
+                return new HelpCommand(commands)
+            })
         }
     }
 
