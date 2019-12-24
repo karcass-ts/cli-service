@@ -34,7 +34,7 @@ export class CliService {
                 throw new Error(`There is no static field "meta" in the ${command.name}`)
             }
             if (meta.name === process.argv[2]) {
-                (await this.container.get(command)).execute()
+                await (await this.container.get(command)).execute()
                 return
             }
         }
